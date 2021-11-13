@@ -1,0 +1,55 @@
+package javaPlayground;
+
+public class Calendar {
+
+	/**
+	 * 연도와 달을 정수로 입력받아 캘린터 모양을 출력하는 프로그램
+	 * 
+	 * 'main'메소드는 'Prompt'클래스로 분리
+	 * 'leap year'조건 추가 (상수 배열 추가, 'boolean'메소드 지정하여 윤년 조건 추가)
+	 * 'getmaxDaysOfMonth'메소드 추가하여 윤년 조건 판별, 조건에 맞는 배열값 리턴
+	 */
+	
+	private static final int[] MAX_DAYS = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	private static final int[] LEAP_MAX_DAYS = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+	public boolean isLeapYear(int year) {
+		if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public int getmaxDaysOfMonth(int year, int month) {
+		if (isLeapYear(year)) {
+			return LEAP_MAX_DAYS[month - 1];
+		} else {
+			return MAX_DAYS[month - 1];
+		}
+	}
+	
+	/**
+	 * 달력 출력용 메소드 생성
+	 * 'getmaxDaysOfMonth'메소드를 받는 'maxDay'변수 지정
+	 * 'maxDay'수까지 반복하여 숫자 출력, 7개씩 끊기 위해 조건문 추가
+	 */
+
+	public void printCalendar(int year, int month) {
+
+		System.out.printf("    <<%4d년 %2d월>>\n", year, month);
+		System.out.println("  S  M  T  W  T  F  S");
+		System.out.println("----------------------");
+
+		int maxDay = getmaxDaysOfMonth(year, month);
+
+		for (int i = 1; i <= maxDay; i++) {
+			System.out.printf("%3d", i);
+			if (i % 7 == 0) {
+				System.out.println();
+			}
+		}
+		System.out.println();
+	}
+}
+

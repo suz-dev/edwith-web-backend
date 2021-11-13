@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+public class N2675 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int T = sc.nextInt();
+		
+		for(int i = 0; i < T; i++) {
+			int R = sc.nextInt();
+			String S = sc.nextLine();
+			char c = S.charAt(i);
+				
+			System.out.println(c);
+						
+//			for(int j = 0; j < R; j++) {
+//				
+//				
+//			}
+		}
+
+	}
+
+}
