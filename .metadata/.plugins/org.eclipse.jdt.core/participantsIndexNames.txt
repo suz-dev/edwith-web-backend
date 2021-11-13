@@ -1,3 +1,0 @@
-INDEX VERSION 1.131
-D:\Coding\eclipse work\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1930883004.index
-\firstweb\src
