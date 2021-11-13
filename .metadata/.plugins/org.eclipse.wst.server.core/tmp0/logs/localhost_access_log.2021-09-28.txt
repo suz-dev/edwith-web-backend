@@ -1,0 +1,12 @@
+127.0.0.1 - - [28/Sep/2021:20:50:38 +0900] "GET / HTTP/1.1" 404 807
+0:0:0:0:0:0:0:1 - - [28/Sep/2021:20:50:39 +0900] "GET /firstweb/LifecycleServlet HTTP/1.1" 200 223
+0:0:0:0:0:0:0:1 - - [28/Sep/2021:20:50:39 +0900] "GET /favicon.ico HTTP/1.1" 404 818
+127.0.0.1 - - [28/Sep/2021:21:07:25 +0900] "GET / HTTP/1.1" 404 807
+0:0:0:0:0:0:0:1 - - [28/Sep/2021:21:07:25 +0900] "GET /firstweb/LifecycleServlet HTTP/1.1" 200 223
+0:0:0:0:0:0:0:1 - - [28/Sep/2021:21:07:32 +0900] "POST /firstweb/LifecycleServlet HTTP/1.1" 200 42
+0:0:0:0:0:0:0:1 - - [28/Sep/2021:21:07:51 +0900] "GET /firstweb/LifecycleServlet HTTP/1.1" 200 223
+0:0:0:0:0:0:0:1 - - [28/Sep/2021:21:07:55 +0900] "POST /firstweb/LifecycleServlet HTTP/1.1" 200 42
+127.0.0.1 - - [28/Sep/2021:21:14:31 +0900] "GET / HTTP/1.1" 404 807
+0:0:0:0:0:0:0:1 - - [28/Sep/2021:21:14:31 +0900] "GET /firstweb/header HTTP/1.1" 200 843
+0:0:0:0:0:0:0:1 - - [28/Sep/2021:21:15:06 +0900] "GET /firstweb/param HTTP/1.1" 200 115
+0:0:0:0:0:0:0:1 - - [28/Sep/2021:21:15:45 +0900] "GET /firstweb/param?name=me&age=5 HTTP/1.1" 200 110

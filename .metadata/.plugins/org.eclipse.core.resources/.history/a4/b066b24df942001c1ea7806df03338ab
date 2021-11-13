@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+public class N1152 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String S = sc.nextLine();
+		String s = S.trim();
+
+		int cnt = 0;
+
+		if (S.charAt(0) == 32 || S.charAt(S.length() - 1) == 32) {
+			cnt--;
+		} else if (S.charAt(0) == 32 && S.charAt(S.length() - 1) == 32) {
+			cnt -= 2;
+		}
+
+		for (int i = 0; i < S.length(); i++) {
+			if (S.charAt(i) == 32) {
+				cnt++;
+			}
+
+		}
+		System.out.println(cnt + 1);
+	}
+
+}
