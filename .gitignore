@@ -9,8 +9,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
-.plugins
-.lock
+.plugins/
 
 # External tool builders
 .externalToolBuilders/
