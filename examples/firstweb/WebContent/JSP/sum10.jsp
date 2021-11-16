@@ -1,5 +1,5 @@
 <%--'<%@ page': 페이지 지시자, 첫줄은 페이지 지시문 (언어, 콘텐츠타입,'JSP'파일 형식(UTF-8)--%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%--모든 'jsp'는 'Servlet'으로 바뀌어서 동작   
@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -17,7 +17,7 @@
 	'<%=': 표현식(응답 결과에 넣고 싶은 자바코드를 넣어주어야 함)--%>
 <% 
     int total = 0;
-    for(int i = 1; i <= 10; i++){
+    for(int i = 1; i <= 10; i++){ 
         total = total + i;
     }
 %>
