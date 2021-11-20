@@ -11,10 +11,11 @@
 <item elementID="=javaPlayground" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSet>
 <workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1636984236349_7" label="Web" name="Web">
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/Servers" type="4"/>
 <item elementID="=firstweb" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item elementID="=exam31" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item elementID="=exam25" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=mavenweb" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/jdbcexam" type="4"/>
 </workingSet>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1632670871815_2" label="Window Working Set" name="Aggregate for window 1632670871815"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1634880786258_4" label="Multiple Working Sets" name="Aggregate:CodingTest:Java Main Sources:Java Test Sources:">
