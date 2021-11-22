@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import kr.or.connect.jdbcexam.dto.Role;
 
@@ -21,7 +23,67 @@ public class RoleDao {
 	private static String dbpasswd = "connect123!@#";
 	
 	/*
-	 * [Inser 예제 - JDBCExam2]
+	 * [Select * 예제 - JDBCExam3]
+	 * Role 정보를 모두 가져와야 함
+	 * Role은 한 건의 데이터만 담을 수 있기 때문에 List를 리턴해야 모든 정보를 조회해서 반환 가능
+	 * ->리턴타입:List<Role>
+	 * +) try-with resource 이용: try(사용할 리소스를 얻어오는 코드 생성)->해당 객체들이 스스로 'close()' 수행
+	 * 
+	 * *1.getRoles() 메소드를 통해 Role의 모든 인자를 List<Role>에 담는다
+	 */
+	public List<Role> getRoles() {
+		
+		// *2.수행 결과를 담을 List<>형 변수 선언
+		List<Role> list = new ArrayList<>();
+		
+		// *3.이 부분에서 객체선언 하지 않음
+		
+		try {
+			// *4.드라이버 로딩(mysql ver):Class의 forName 메소드 수행
+			Class.forName("com.mysql.jdbc.Driver");
+			
+		// *5.예외처리
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		// *6.수행할 쿼리문 String으로 작성
+		String sql = "SELECT description, role_id FROM role order by role_id desc";
+
+		/*
+		 * *7.try-with resource 이용: try(사용할 리소스를 얻어오는 코드 생성)->해당 객체들이 스스로 'close()'수행 (finally 블록 에서 close() 수행 할 필요 X)
+		 * Connection 객체 얻어옴, Statement 객체 얻어옴('*6' 쿼리문 이용) 
+		 */
+		try (Connection conn = DriverManager.getConnection(dburl, dbUser, dbpasswd);
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+			
+			// *8.ResultSet 객체는 try 블럭 내부에서 ResultSet을 얻어옴
+			try (ResultSet rs = ps.executeQuery()) {
+				
+				/*
+				 * *9.ResultSet 객체에 결과값이 없을 경우에 대한 반복문 작성 (여러 건의 정보를 가져와야 하기 때문에 반복문 실행)
+				 * next() 메소드(boolean 타입): 결과값이 있다면 첫 번째 레코드로 커서를 이동시킨 뒤 true 리턴 
+				 * 							 -> 수행될 때마다 다음 레코드로 커서를 이동시켜 반복 수행
+				 * 							  결과값이 없다면 false 리턴 
+				 */
+				while (rs.next()) {
+					
+					String description = rs.getString(1);  // get() 메소드를 통해 description, id 에 대한 정보를 하나씩 꺼낸다
+					int id = rs.getInt("role_id");  
+					Role role = new Role(id, description);  // Role 객체 생성 -> get() 메소드를 통해 받아온 정보를 다는다
+					list.add(role);  // list에 반복될때마다 Role 인스턴스를 생성하여 list에 추가한다
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return list;  // list 리턴
+	}
+	
+	/*
+	 * [Insert 예제 - JDBCExam2]
 	 * i1.한 건을 입력하는 메소드 addRole()에 role을 인자로 받아 수행
 	 */
 	public int addRole(Role role) {
@@ -75,6 +137,7 @@ public class RoleDao {
 		}				
 		return insertCount; // insertCount 리턴
 	}
+	
 	/*
 	 * [Select 예제 - JDBCExam1]
 	 * 6.데이터를 한 건 가져오는 메소드 (가져온 데이터를 담아낼 객체 = Role -> Role을 리턴하는 객체를 만들어준다)
