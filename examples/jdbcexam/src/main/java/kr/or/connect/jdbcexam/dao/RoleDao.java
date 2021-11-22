@@ -19,7 +19,64 @@ public class RoleDao {
 	private static String dburl = "jdbc:mysql://localhost:3306/connectdb";
 	private static String dbUser = "connectuser";
 	private static String dbpasswd = "connect123!@#";
+	
 	/*
+	 * [Inser 예제 - JDBCExam2]
+	 * i1.한 건을 입력하는 메소드 addRole()에 role을 인자로 받아 수행
+	 */
+	public int addRole(Role role) {
+		// i2.수행 결과를 담을 정수형 변수 선언
+		int insertCount = 0; 
+		
+		// i3.객체 선언 (insert문 이기 때문에 결과 값을 ResultSet으로 가져오지 않아 ResultSet 객체는 선언하지 않음)
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			// i4.드라이버 로딩 (mysql ver):Class의 forName 메소드 수행
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			// i5.Connection 객체 얻어오기: java.sql 패키지가 가진 DriverManager 클래스의 getConnection() 메소드 사용
+			conn = DriverManager.getConnection(dburl, dbUser, dbpasswd); // url, user, password에 대해 중복값 사용
+			
+			// i7.수행할 쿼리문 String으로 작성 (들어올 인자값이 매번 바뀔 때 '?'로 사용가능:preparedStatement 특징)
+			String sql = "INSERT INTO role (role_id, description) VALUES ( ?, ? )";
+			
+			// i6.Connection 객체를 이용해 Statement 객체 얻어옴 (쿼리문 필요)
+			ps = conn.prepareStatement(sql);
+			
+			/*
+			 * i8.'i7'에서 '?'부분의 값을 바꿔주는 코드 preparedStatement가 가지고 있는 set메소드 사용
+			 * set'Type'(parameterIndex, x)으로 작성 
+			 * parameterIndex : 물음표의 순서  ('i7'의 쿼리에서 나열한 column의 순서)
+			 * x:'?'대신 넣어줄 값->여기서는 해당 메소드의 인자로 받아온 Role 객체가 갖고 있는 role_id, description
+			 */
+			ps.setInt(1, role.getRoleId());
+			ps.setString(2, role.getDescription());
+			
+			// i9.executeUpdat():실행을 수행하는 메소드 (Insert, Update, Delete를 수행할 때 사용)
+			insertCount = ps.executeUpdate();
+			
+		// i10.예외처리
+		}catch (Exception ex) {
+			ex.printStackTrace();
+		}finally { // i.11.close() 메소드 역순으로 모두 수행 (ps,conn):후반 과정이지만 잊지 않도록 먼저 작성할 것
+			if(ps != null) {
+				try {
+					ps.close();
+				}catch(Exception ex) {}
+			} // if
+			
+			if(conn != null) {
+				try {
+					conn.close();
+				}catch(Exception ex) {}
+			} // if
+		}				
+		return insertCount; // insertCount 리턴
+	}
+	/*
+	 * [Select 예제 - JDBCExam1]
 	 * 6.데이터를 한 건 가져오는 메소드 (가져온 데이터를 담아낼 객체 = Role -> Role을 리턴하는 객체를 만들어준다)
 	 * getRole(Integer roleId):roleId에 해당하는 한건의 정보 Role을 가져오는 메소드
 	 */
@@ -33,13 +90,13 @@ public class RoleDao {
 		PreparedStatement ps = null; // 명령을 선언할 객체
 		ResultSet rs = null; // 결과값을 담아낼 객체
 		
-		// 10.예외처리
+		
 		try {
 			// 13.드라이버 로딩 (mysql ver):Class의 forName 메소드 수행
 			Class.forName( "com.mysql.jdbc.Driver" ); 
 
 			// 14.Connection 객체 얻어오기: java.sql 패키지가 가진 DriverManager 클래스의 getConnection() 메소드 사용
-			conn = DriverManager.getConnection(dburl, dbUser, dbpasswd); // url, user, password에 대해 중복값 사용 예정
+			conn = DriverManager.getConnection(dburl, dbUser, dbpasswd); // url, user, password에 대해 중복값 사용 
 			
 			// 17.수행할 쿼리문 String으로 작성 (들어올 인자값이 매번 바뀔 때 '?'로 사용가능:preparedStatement 특징)
 			String sql = "SELECT description,role_id FROM role WHERE role_id = ?"; 
@@ -72,6 +129,7 @@ public class RoleDao {
 				// 22.'21'의 description,id의 값을 담을 role객체를 실제로 생성 
 				role = new Role(id, description); 
 			}
+		// 10.예외처리
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally { // 11.close() 메소드 역순으로 모두 수행 (rs,ps,conn):후반 과정이지만 잊지 않도록 먼저 작성할 것
